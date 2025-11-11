@@ -1,0 +1,21 @@
+{
+  "name": "products",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "dotenvx run -- nodemon run app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "description": "",
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.49.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.0",
+    "nodemon": "^3.1.10"
+  }
+}
