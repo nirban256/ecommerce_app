@@ -1,57 +1,101 @@
-# React + Vite
+# 📦 Distributed E-Commerce System (React + TailwindCSS + Microservices)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **distributed system–based e-commerce application UI** built using:
 
-Currently, two official plugins are available:
+- React + Vite  
+- TailwindCSS v4  
+- Microservices Architecture  
+- API Gateway Layer  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The goal of this project is to demonstrate how a front-end application interacts with four distributed backend services: **API Gateway**, **Authentication**, **Products**, and **Orders**.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Features
+
+### 🔹 Microservices Used
+
+#### 1. API Gateway Service
+- Acts as the single entry point for all requests.  
+- Routes API calls to the appropriate backend microservice.  
+- Handles authorization forwarding, throttling, and routing logic.
+
+#### 2. Authentication Service
+- Manages user signup, login, and session verification.  
+- Issues JWT tokens.  
+- Protects secured routes and ensures identity validation.
+
+#### 3. Products Service
+- Manages the product catalog.  
+- Provides product listing, product details, and inventory data.  
+- Scalable and independent from other services.
+
+#### 4. Orders Service
+- Handles order creation and checkout flows.  
+- Validates stock with the Products Service.  
+- Verifies user identity with the Authentication Service.
+
+---
+
+## 🖥️ Frontend (React + Vite + TailwindCSS v4)
+
+The frontend provides:
+
+- A responsive, modern UI built with TailwindCSS v4.  
+- A service-status dashboard showing distributed system health.  
+- Product listings with clean component structure.  
+- Microservice-friendly architecture for future backend integration.
+
+---
+
+## 📁 Project Structure (Frontend Only)
+
+```bash
+src/
+│ App.jsx
+│ main.jsx
+│ index.css
+│
+├── components/
+│ ├── Header.jsx
+│ ├── Footer.jsx
+│ ├── ProductCard.jsx
+│ ├── ProductList.jsx
+│ ├── ServiceStatus.jsx
+│ └── DistributedBanner.jsx
+│
+└── data/
+  └──products.js
+```
+
+---
+
+## 🧩 How the Frontend Interacts With Services
+
+| Service        | Example Endpoint     | Description                  |
+|----------------|-----------------------|------------------------------|
+| API Gateway    | `/api/*`              | Centralized request handler |
+| Authentication | `/auth/login`         | Login & authentication      |
+| Products       | `/products`           | Fetch product data          |
+| Orders         | `/orders/create`      | Create new orders           |
+
+All frontend API calls are intended to hit the **API Gateway**, which forwards them internally to the correct service.
+
+---
+
+## 🏗️ Run the Frontend Locally
+
+```bash
+cd frontend/
+npm install
+npm run dev
+```
 
 
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+🛠️ Technologies Used
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model Order {
-  id          String       @id @default(uuid())
-  userId      String       // comes from Auth Service (Supabase user.id)
-  status      OrderStatus  @default(PENDING)
-  totalAmount Float
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  items       OrderItem[]
-}
-
-model OrderItem {
-  id        String   @id @default(uuid())
-  orderId   String
-  productId String   // This is from the Product Service (MongoDB ID)
-  quantity  Int
-  price     Float
-
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-}
-
-enum OrderStatus {
-  PENDING
-  CONFIRMED
-  SHIPPED
-  DELIVERED
-  CANCELLED
-}
+- React JS
+- Vite
+- TailwindCSS v4
+- JavaScript (ES Modules)
+- Component-Driven UI Architecture
